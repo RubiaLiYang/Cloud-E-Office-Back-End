@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/cloud_e_office?useUnicode=true&characterEncoding=UTF-8
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root
+      password: 123456
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+
+      filters: stat,wall,log4j
+      maxPoolPreparedStatementPerConnectionSize: 20
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      useGlobalDataSourceStat: true
+
+    type: com.alibaba.druid.pool.DruidDataSource
+mybatis-plus:
+  #  配置mapper映射文件
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+  type-aliases-package: com.liam.pojo
+  configuration:
+    #    自动驼峰命名
+    map-underscore-to-camel-case: false
