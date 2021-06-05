@@ -23,9 +23,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
  */
 public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
 
+//  请求头
   @Value("${jwt.tokenHeader}")
   private String tokenHeader;
-
+//  负载头
   @Value("${jwt.tokenHead}")
   private String tokenHead;
 
@@ -40,7 +41,9 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
       FilterChain filterChain)
       throws ServletException, IOException {
 
+//    拿到请求头
     String authHeader = httpServletRequest.getHeader(tokenHeader);
+//    是否存在token,负载开头是否以bearer开头
     if (null != authHeader && authHeader.startsWith(tokenHead)) {
       String authToken = authHeader.substring(tokenHead.length());
       String username = tokenUtil.getUsernameFromToken(authToken);

@@ -39,7 +39,7 @@ public class LoginController {
   @PostMapping("/login")
   public ResponseBean login(@RequestBody AdminLoginParam adminLoginParam, HttpServletRequest request) {
     return adminService.login(
-        adminLoginParam.getUsername(), adminLoginParam.getPassword(), request);
+        adminLoginParam.getUsername(), adminLoginParam.getPassword(),adminLoginParam.getVerificationCode(), request);
   }
 
   /**

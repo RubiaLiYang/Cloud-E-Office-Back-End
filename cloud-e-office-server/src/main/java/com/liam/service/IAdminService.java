@@ -6,12 +6,9 @@ import com.liam.pojo.ResponseBean;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * <p>
- *  服务类
- * </p>
- *
- * @author Liam
- * @since 2021-05-03
+ * @author      XiaoYang
+ * @date        2021/6/5
+ * @description :用户service
  */
 public interface IAdminService extends IService<Admin> {
 
@@ -22,7 +19,7 @@ public interface IAdminService extends IService<Admin> {
    * @return      com.liam.pojo.ResponseBean
    * @description :登录之后返回token
    */
-  ResponseBean login(String username, String password, HttpServletRequest request);
+  ResponseBean login(String username, String password,String verificationCode, HttpServletRequest request);
 
   /**
    * @author      XiaoYang

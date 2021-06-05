@@ -33,18 +33,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   /** 当访问接口没有权限时,自定义返回结果 */
   @Autowired private RestfulAccessDeniedHandler accessDeniedHandler;
 
-  /** 注册UserDetailsService Bean */
-  @Bean
-  public UserDetailsService userDetailsService() {
-    return username -> {
-      Admin admin = adminService.getAdminByUserName(username);
-      if (null != admin) {
-        return admin;
-      }
-      return null;
-    };
-  }
-
   /**
    * @author XiaoYang
    * @date 2021/6/5
@@ -62,6 +50,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     return new JWTAuthenticationTokenFilter();
   }
 
+  /**
+   * @author      XiaoYang
+   * @date        2021/6/5
+   * @param       []
+   * @return      org.springframework.security.core.userdetails.UserDetailsService
+   * @description :创建自定义UserDetails实现类
+   */
+  @Bean
+  public UserDetailsService userDetailsService() {
+    return username -> {
+      Admin admin = adminService.getAdminByUserName(username);
+      if (null != admin) {
+        return admin;
+      }
+      return null;
+    };
+  }
+
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
@@ -76,10 +82,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
    */
   @Override
   public void configure(WebSecurity web) throws Exception {
-    web.ignoring().antMatchers("/login", "/logout");
-    /** 资源放行 */
+//    自定义放行路径
+    web.ignoring().antMatchers("/login", "/logout","/kaptcha");
+//    资源放行
     web.ignoring().antMatchers("/css/**", "/js/**", "/index.html", "favicon.ico");
-    /** swagger资源放行 */
+//    swagger资源放行
     web.ignoring()
         .antMatchers("/doc.html", "/webjars/**", "/swagger-resources/**", "/v2/api-docs/**");
   }

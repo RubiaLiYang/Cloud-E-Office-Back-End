@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * @author      XiaoYang
@@ -50,8 +51,13 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
    * @description :登录之后返回token
    */
   @Override
-  public ResponseBean login(String username, String password, HttpServletRequest request) {
-
+  public ResponseBean login(String username, String password,String verificationCode, HttpServletRequest request) {
+    //    获取验证码
+    String kaptcha = (String) request.getSession().getAttribute("kaptcha");
+//    如果验证码为空,或者验证码不匹配
+    if (StringUtils.isEmpty(kaptcha)||!kaptcha.equalsIgnoreCase(verificationCode)) {
+      return ResponseBean.error("验证码输入错误,请重新输入!");
+    }
     // 登录
     UserDetails userDetails = userDetailsService.loadUserByUsername(username);
     //    判断用户信息是否正确

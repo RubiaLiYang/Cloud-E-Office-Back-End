@@ -28,8 +28,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2 //开启swagger
 public class SwaggerConfig  {
 
+  /**
+   * @author      XiaoYang
+   * @date        2021/6/5
+   * @param       []
+   * @return      springfox.documentation.spring.web.plugins.Docket
+   * @description :配置swagger信息
+   */
   @Bean
-  public Docket docket() {
+  public Docket createRestApi() {
     return new Docket(DocumentationType.SWAGGER_2)
         .apiInfo(apiInfo())
         .select()
@@ -42,12 +49,12 @@ public class SwaggerConfig  {
 
   public ApiInfo apiInfo(){
 
-    Contact liam = new Contact("Liam", "http:localhost:8081/doc.html", "LiamYang99@outlook.com");
+    Contact Yokaze = new Contact("Yokaze", "http:localhost:8081/doc.html", "LiamYang99@outlook.com");
 
     return new ApiInfoBuilder()
         .title("云E办 api 文档")
         .description("接口文档")
-        .contact(liam)
+        .contact(Yokaze)
         .version("1.0")
         .build();
   }
