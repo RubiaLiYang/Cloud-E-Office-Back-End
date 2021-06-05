@@ -45,6 +45,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     };
   }
 
+  /**
+   * @author XiaoYang
+   * @date 2021/6/5
+   * @param []
+   * @return org.springframework.security.crypto.password.PasswordEncoder
+   * @description :设置用户密码
+   */
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
@@ -65,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
    * @date 2021/5/31
    * @param [web]
    * @return void
-   * @description :放行路径
+   * @description security放行路径
    */
   @Override
   public void configure(WebSecurity web) throws Exception {
@@ -77,6 +84,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/doc.html", "/webjars/**", "/swagger-resources/**", "/v2/api-docs/**");
   }
 
+  /**
+   * @author XiaoYang
+   * @date 2021/6/5
+   * @param [http]
+   * @return void
+   * @description :security配置信息
+   */
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     // 使用jwt,不需要csrf
@@ -87,7 +101,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     // 允许登录访问
     http.authorizeRequests()
-        // 除了上面,所有请求都需要认证
+        //        拦截所有请求
         .anyRequest()
         .authenticated();
     // 缓存关闭

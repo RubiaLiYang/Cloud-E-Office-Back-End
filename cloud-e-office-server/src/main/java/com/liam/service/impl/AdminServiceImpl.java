@@ -87,6 +87,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
   @Override
   public Admin getAdminByUserName(String username) {
 
+    //拿到非禁用的用户对象
     return adminMapper.selectOne(
         new QueryWrapper<Admin>().eq("username", username).eq("enabled", true));
   }

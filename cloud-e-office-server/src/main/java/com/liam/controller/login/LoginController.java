@@ -55,8 +55,11 @@ public class LoginController {
     if (null == principal) {
       return null;
     }
+//    获取当前登录用户的用户名
     String username = principal.getName();
+//    根据当前登录的用户名,获取当前用户对象
     Admin admin=adminService.getAdminByUserName(username);
+//    出于保密目的,密码返回为空
     admin.setPassword(null);
     return admin;
   }

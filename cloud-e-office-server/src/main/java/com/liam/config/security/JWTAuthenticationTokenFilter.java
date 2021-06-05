@@ -23,7 +23,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
  */
 public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
 
-
   @Value("${jwt.tokenHeader}")
   private String tokenHeader;
 
